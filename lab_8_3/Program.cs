@@ -10,7 +10,9 @@ namespace lab8_3
         {
             string[] array = { "code", "doce", "ecod", "framer", "frame" };
             List<string> list = new List<string>();
+
             Console.Write("Array before: ");
+
             foreach (string item in array)
             {
                 list.Add(item);
@@ -19,40 +21,40 @@ namespace lab8_3
 
             for(int i =0; i < array.Length; i++)
             {
-                char[] arr1 = array[i].ToCharArray();
+                char[] firstWord = array[i].ToCharArray();
                 for(int j = i+1; j < array.Length; j++)
                 {
-                    char[] arr2 = array[j].ToCharArray();
-                    if (EquivalenceCheck(arr1, arr2))
+                    char[] secondWord = array[j].ToCharArray();
+                    if (EquivalenceCheck(firstWord, secondWord))
                         list.Remove(array[j]);
                 }
             }
             
             Console.Write($"\nArray after: {String.Join(" ", list)}");
         }
-        static bool EquivalenceCheck(char[] arr1, char[] arr2)
+
+        static bool EquivalenceCheck(char[] firstWord, char[] secondWord)
         {
-            if (arr1.Length != arr2.Length)
+            if (firstWord.Length != secondWord.Length)
                 return false;
 
-            char[] arr = new char[arr1.Length];
-            for(int i = 0; i < arr1.Length; i++)
+            char[] newWord = new char[firstWord.Length];
+            for(int i = 0; i < firstWord.Length; i++)
             {
-                for(int j = 0; j < arr2.Length; j++)
+                for(int j = 0; j < secondWord.Length; j++)
                 {
-                    if (arr1[i] == arr2[j])
-                        arr[i] = arr2[j];
+                    if (firstWord[i] == secondWord[j])
+                        newWord[i] = secondWord[j];
                 }
             }
-            for(int i = 0; i < arr.Length; i++)
+            for(int i = 0; i < newWord.Length; i++)
             {
-                if (arr[i] == arr1[i])
+                if (newWord[i] == firstWord[i])
                     continue;
                 else
                     return false;
             }
             return true;
-            ///return string.Concat(s).Equals(string.Concat(m));
         }
     }
 }
