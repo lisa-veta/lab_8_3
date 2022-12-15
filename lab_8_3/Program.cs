@@ -8,7 +8,7 @@ namespace lab8_3
     {
         static void Main()
         {
-            string[] array = { "code", "doce", "ecod", "framer", "frame" };
+            string[] array = { "code", "doce", "ecod", "framer", "frame", "frmae" };
             List<string> list = new List<string>();
 
             Console.Write("Array before: ");
@@ -19,13 +19,11 @@ namespace lab8_3
                 Console.Write($"{item} ");
             }
 
-            for(int i =0; i < array.Length; i++)
+            for(int i = 0; i < array.Length; i++)
             {
-                char[] firstWord = array[i].ToCharArray();
                 for(int j = i+1; j < array.Length; j++)
                 {
-                    char[] secondWord = array[j].ToCharArray();
-                    if (EquivalenceCheck(firstWord, secondWord))
+                    if (EquivalenceCheck(array[i], array[j]))
                         list.Remove(array[j]);
                 }
             }
@@ -33,28 +31,40 @@ namespace lab8_3
             Console.Write($"\nArray after: {String.Join(" ", list)}");
         }
 
-        static bool EquivalenceCheck(char[] firstWord, char[] secondWord)
+        static bool EquivalenceCheck(string firstWord, string secondWord)
         {
             if (firstWord.Length != secondWord.Length)
                 return false;
 
-            char[] newWord = new char[firstWord.Length];
-            for(int i = 0; i < firstWord.Length; i++)
+            char[] arrFirst = firstWord.ToCharArray();
+            char[] arrSecond = secondWord.ToCharArray();
+
+            char[] newWord = new char[arrFirst.Length];
+            for (int i = 0; i < arrFirst.Length; i++)
             {
-                for(int j = 0; j < secondWord.Length; j++)
+                for (int j = 0; j < arrSecond.Length; j++)
                 {
-                    if (firstWord[i] == secondWord[j])
-                        newWord[i] = secondWord[j];
+                    if (arrFirst[i] == arrSecond[j])
+                        newWord[i] = arrSecond[j];
                 }
             }
-            for(int i = 0; i < newWord.Length; i++)
+
+            for (int i = 0; i < newWord.Length; i++)
             {
-                if (newWord[i] == firstWord[i])
+                if (newWord[i] == arrFirst[i])
                     continue;
                 else
                     return false;
             }
             return true;
+
+            //Позже я поняла что можно сделать проще используя встроенные функции:
+            //char[] arrFirst = firstWord.ToCharArray();
+            //char[] arrSecond = secondWord.ToCharArray();
+
+            //Array.Sort(arrFirst);
+            //Array.Sort(arrSecond);
+            //return arrSecond.SequenceEqual(arrFirst);
         }
     }
 }
